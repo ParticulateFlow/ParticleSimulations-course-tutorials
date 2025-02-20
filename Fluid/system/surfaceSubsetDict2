@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.1.0                                 |
+|  \\    /   O peration     | Version:  4.x                                   |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,33 +10,26 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      topoSetDict;
+    object      surfaceSubsetDict;
 }
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-actions
-(
-    {
-        name    leftBottomFaces;
-        type    faceSet;
-        action  new;
-        source  boxToFace;
-        sourceInfo
-        {
-            box (-0.126 -0.126 -1.0) (-0.124 -0.02 1.0);
-        }
-    }
+faces ();
 
-    {
-        name    rightBottomFaces;
-        type    faceSet;
-        action  new;
-        source  boxToFace;
-        sourceInfo
-        {
-            box (-0.126 0.02 -1.0) (-0.124 0.126 1.0);
-        }
-    }
+localPoints ();
+
+edges ();
+
+// Select triangles (with face centre) inside box
+zone
+(
+    (-0.11 0.0 -1.0) (-0.099 0.11 1.0)
 );
+
+
+// Extend selection with edge neighbours
+addFaceNeighbours no;
+
+// Invert selection
+invertSelection false;
 
 // ************************************************************************* //
