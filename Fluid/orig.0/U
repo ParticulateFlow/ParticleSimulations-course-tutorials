@@ -37,14 +37,10 @@ boundaryField
         value           uniform (0 0 0);
     }
 
-    sym1
+    sides
     {
-        type            symmetryPlane;
-    }
-
-    sym2
-    {
-        type            symmetryPlane;
+        type            fixedValue;
+        value           uniform (0 0 0);
     }
 
     back

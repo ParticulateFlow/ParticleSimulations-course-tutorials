@@ -36,15 +36,9 @@ boundaryField
         type            zeroGradient;
     }
 
-    sym1
+    sides
     {
-        //type            symmetry;
-        type            symmetryPlane;
-    }
-
-    sym2
-    {
-        type            symmetryPlane;
+        type            zeroGradient;
     }
 
     back
