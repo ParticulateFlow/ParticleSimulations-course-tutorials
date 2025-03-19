@@ -38,6 +38,6 @@ def plot_particles_2d(positions, radii, filename):
     
     plt.savefig(filename, dpi=1000)
 
-for i in range(1,9):
-    positions, radii = read_vtk('post/dump'+str(i)+'0000.vtk')
+for i in range(1,11):
+    positions, radii = read_vtk('DEM/post/dump'+str(i)+'00000.vtk')
     plot_particles_2d(positions, radii, 'particles_'+str(i)+'.png')

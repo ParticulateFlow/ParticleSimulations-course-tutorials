@@ -9,7 +9,7 @@ rc('text', usetex=True)
 
 df = pd.read_csv("postProcessing/probes1/0/U", delim_whitespace=True, header=None, comment='#')
 df = df.replace(r"[()]", "", regex=True)
-values = df.values
+values = df.astype(float).values
 
 fig = plt.figure()
 

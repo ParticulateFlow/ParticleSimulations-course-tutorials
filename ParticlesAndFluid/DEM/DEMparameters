@@ -1,0 +1,23 @@
+# General parameters
+# time step
+variable timestep equal 1e-5
+# particle number to insert
+variable partN equal 50000
+
+
+# Material parameters
+# particle density
+variable partDens equal 700
+# particle radius		
+variable partRad equal 1.5e-3
+variable skin   equal   ${partRad}*0.9      
+# Young's modulus
+variable ym equal 5000000.0
+# Poisson's ratio	
+variable pr equal 0.2
+# coefficient of restitution
+variable cor equal 0.2
+# sliding friction
+variable fricS equal 0.5
+# rolling friction
+variable fricR equal 0.3

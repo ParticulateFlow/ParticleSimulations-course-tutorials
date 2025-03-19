@@ -8,7 +8,7 @@ rc('font',**{'family':'serif','serif':['Times'],'size':7})
 rc('text', usetex=True)
 
 df = pd.read_csv("stat.txt", delim_whitespace=True, header=None, comment='#')
-values = df.values
+values = df.astype(float).values
 
 fig = plt.figure()
 
