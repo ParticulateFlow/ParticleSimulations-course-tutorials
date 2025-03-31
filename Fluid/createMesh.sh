@@ -4,6 +4,8 @@ rm -r constant/polyMesh
 rm -r surface
 mkdir surface
 blockMesh
+foamToVTK
+mv VTK VTK_mesh
 
 # extract surface for usage as walls in DEM simulation
 foamToSurface surface/surface.stl
