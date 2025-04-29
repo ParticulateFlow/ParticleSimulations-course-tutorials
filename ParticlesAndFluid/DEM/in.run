@@ -87,12 +87,12 @@ variable vp equal vcm(all,x)
 fix printstat all print 1000 "${time} ${np} ${mp} ${vp}" file ../DEM/stat.txt title "#time   np   mp   vp"
 
 shell mkdir ../DEM/post
-dump dmp all custom/vtk 100000 ../DEM/post/dump*.vtk id x y z vx vy vz radius
-dump dumpstl1 all mesh/stl 100000 ../DEM/post/bottom1_*.stl bottom1
-dump dumpstl2 all mesh/stl 100000 ../DEM/post/bottom2_*.stl bottom2
-dump dumpstl3 all mesh/stl 100000 ../DEM/post/cylinder_*.stl cylinder
-dump dumpstl4 all mesh/stl 100000 ../DEM/post/sides_*.stl sides
-dump dumpstl5 all mesh/stl 100000 ../DEM/post/back_*.stl back
+dump dmp all custom/vtk 10000 ../DEM/post/dump*.vtk id x y z vx vy vz radius
+dump dumpstl1 all mesh/stl 10000 ../DEM/post/bottom1_*.stl bottom1
+dump dumpstl2 all mesh/stl 10000 ../DEM/post/bottom2_*.stl bottom2
+dump dumpstl3 all mesh/stl 10000 ../DEM/post/cylinder_*.stl cylinder
+dump dumpstl4 all mesh/stl 10000 ../DEM/post/sides_*.stl sides
+dump dumpstl5 all mesh/stl 10000 ../DEM/post/back_*.stl back
 
 
 #Start the simulation

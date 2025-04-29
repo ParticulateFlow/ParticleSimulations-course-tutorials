@@ -82,18 +82,12 @@ implicitCoupleProps
     voidfractionFieldName "voidfraction";
 }
 
-ArchimedesProps
-{
-    densityFieldName "rho";
-    gravityFieldName "g";
-}
 gradPForceProps
 {
     pFieldName "p";
     densityFieldName "rho";
     voidfractionFieldName "voidfraction";
     velocityFieldName "U";
-    //interpolation;
 }
 
 viscForceProps
@@ -102,19 +96,7 @@ viscForceProps
     densityFieldName "rho";
     interpolation;
 }
-volWeightedAverageProps
-{
-    scalarFieldNames
-    (
-        voidfraction
-    );
-    vectorFieldNames
-    (
-    );
-    upperThreshold 0.999;
-    lowerThreshold 0;
-    verbose;
-}
+
 totalMomentumExchangeProps
 {
     implicitMomExFieldName "Ksl";
@@ -123,6 +105,7 @@ totalMomentumExchangeProps
     granVelFieldName "Us";
     densityFieldName "rho";
 }
+
 BeetstraDragProps
 {
     velFieldName "U";
@@ -145,38 +128,9 @@ SyamlalThermCondProps
 {
 }
 
-
-fieldTimeAverageProps
-{
-    startTime 5.0;
-
-    scalarFieldNames
-    (
-        "voidfraction"
-    );
-
-    vectorFieldNames
-    (
-        "Us"
-    );
-}
-
-centreProps
-{
-    alphaMin 0.10;
-}
-
 engineProps
 {
     treeSearch true;
-}
-
-turboEngineM2MProps
-{
-    turboEngineProps
-    {
-        treeSearch true;
-    }
 }
 
 dividedProps
@@ -187,17 +141,10 @@ dividedProps
     verbose;
 }
 
-
-
 twoWayMPIProps
 {
     maxNumberOfParticles 50000;
     liggghtsPath "../DEM/in.run";
 }
 
-
-particleProbeProps
-{
-        particleIDsToSample "0";
-}
 // ************************************************************************* //
