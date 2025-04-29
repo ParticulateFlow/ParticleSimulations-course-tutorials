@@ -16,15 +16,22 @@ def read_vtk(filename):
     # Get particle positions and radii
     points = reader.GetOutput().GetPoints()
     radii = reader.GetOutput().GetPointData().GetArray('radius')
+    velocities = reader.GetOutput().GetPointData().GetArray('v')
 
     particle_positions = np.array([points.GetPoint(i) for i in range(points.GetNumberOfPoints())])
     particle_radii = np.array([radii.GetValue(i) for i in range(radii.GetNumberOfValues())])
+    particle_velocities = np.array([velocities.GetValue(i) for i in range(velocities.GetNumberOfValues())])
+    particle_velocities = particle_velocities.reshape(-1, 3)
+    particle_velocity_magnitudes = np.sum(particle_velocities**2, axis=1)
+    particle_velocity_magnitudes = np.sqrt(particle_velocity_magnitudes)
     
-    return particle_positions, particle_radii
+    return particle_positions, particle_radii, particle_velocity_magnitudes
 
-def plot_particles_2d(positions, radii, filename):
+def plot_particles_2d(positions, radii, velocity_magnitudes, filename):
     fig, ax = plt.subplots()
-    ax.scatter(positions[:, 1], positions[:, 0], s=radii * 1000, c='b', alpha=0.5)
+    scatter = ax.scatter(positions[:, 1], positions[:, 0], s=radii * 1000, c=velocity_magnitudes, cmap='coolwarm', vmin=0, vmax=0.5, alpha=0.5)
+    cbar = fig.colorbar(scatter, ax=ax)
+    cbar.set_label('$|u|$ [m/s]', labelpad=15, fontsize=14)
     ax.set_xlabel('')
     ax.set_ylabel('')
     ax.set_aspect('equal', 'box')
@@ -38,6 +45,6 @@ def plot_particles_2d(positions, radii, filename):
     
     plt.savefig(filename, dpi=1000)
 
-for i in range(1,11):
-    positions, radii = read_vtk('DEM/post/dump'+str(i)+'00000.vtk')
-    plot_particles_2d(positions, radii, 'particles_'+str(i)+'.png')
+for i in range(1,51):
+    positions, radii, velocity_magnitudes = read_vtk('DEM/post/dump'+str(i)+'0000.vtk')
+    plot_particles_2d(positions, radii, velocity_magnitudes, 'particles_'+str(i)+'.png')
