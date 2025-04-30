@@ -38,7 +38,7 @@ meshMotionModel noMeshMotion;
 
 regionModel allRegion;
 
-IOModel "off";
+IOModel off;
 
 dataExchangeModel twoWayMPI;
 
@@ -61,7 +61,7 @@ energyModels ();
 
 chemistryModels ();
 
-thermCondModel SyamlalThermCond;
+thermCondModel off;
 
 momCoupleModels
 (
@@ -113,19 +113,6 @@ BeetstraDragProps
     densityFieldName "rho";
     voidfractionFieldName "voidfraction";
     phi 1;
-}
-
-heatTransferGunnProps
-{
-    partTempName "Temp";
-    partHeatFluxName "convectiveHeatFlux";
-    calcPartTempField false;
-    partRefTemp 293;
-    verbose false;
-}
-
-SyamlalThermCondProps
-{
 }
 
 engineProps
