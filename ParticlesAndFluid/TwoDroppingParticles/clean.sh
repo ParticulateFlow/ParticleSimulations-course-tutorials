@@ -9,4 +9,5 @@ cd ../DEM
 rm log.*
 rm post/*
 cd ..
+rm *.log
 rm *.png
