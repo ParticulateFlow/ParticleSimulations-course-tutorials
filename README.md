@@ -8,12 +8,13 @@ Tutorial cases for the lecture 'Introduction to Particle Simulation' at JKU.
 
 Vortex shedding after a cylinder at Re = 200 computed with OpenFOAM. After a spin-up phase, a periodic Kármán vortex street develops.
 
-## Particles test case
+## Particles test cases
 <div style="text-align: center;">
 <img src="illustrations/Particles_boxWithObstacle.png" alt="Particles test case 1" width="500" />
 </div>
 
 Particles settling in a box with an obstacle and draining through a hole in the bottom. After sufficient time, only particles in the corners remain in the domain and demonstrate the material's angle of repose.
+
 
 <div style="text-align: center;">
 <img src="illustrations/Particles_hangingHopper.png" alt="Particles test case 2" width="500" />
