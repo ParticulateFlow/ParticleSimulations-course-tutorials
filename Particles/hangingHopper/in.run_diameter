@@ -1,0 +1,85 @@
+# Cone example
+
+variable ced equal 85000
+variable cylrad equal 0.035
+
+atom_style  granular
+atom_modify map array
+boundary    f f f
+newton      off
+
+communicate single vel yes
+
+units       si
+
+processors 2 2 2
+
+region      reg block -0.06 0.06 -0.06 0.06 -0.05 0.1 units box
+create_box  2 reg
+
+neighbor        0.002 bin
+neigh_modify    delay 0
+
+
+#Material properties required for granular pair styles
+fix     m1 all property/global youngsModulus peratomtype 5.e6 5.e6
+fix     m2 all property/global poissonsRatio peratomtype 0.45 0.45
+fix     m3 all property/global coefficientRestitution peratomtypepair 2 0.2 0.2 0.2 0.2
+fix     m4 all property/global coefficientFriction peratomtypepair 2 0.6 0.45 0.45 0.05
+fix     m5 all property/global coefficientRollingFriction peratomtypepair 2 0.5 0.35 0.35 0
+fix     m6 all property/global cohesionEnergyDensity peratomtypepair 2 ${ced} 0 0 0
+
+#pair style
+pair_style  gran model hertz tangential history cohesion sjkr rolling_friction epsd2
+pair_coeff  * *
+
+timestep    0.00001
+
+fix         gravi all gravity 9.81 vector 0.0 0.0 -1.0
+
+fix cyl     all wall/gran model hertz tangential history cohesion sjkr rolling_friction epsd2 primitive type 2 zcylinder ${cylrad} 0. 0.
+
+variable theta equal 55
+variable tantheta equal tan(${theta}*3.1415/180)
+variable r equal 0.0044
+variable h equal -(${cylrad}-$r)/${tantheta}
+variable h1 equal $h-0.01
+variable h2 equal $h-0.005
+                                                                                                                            # R1    x1 y1 z1  x2 y2 z2   R2
+fix cone    all wall/gran model hertz tangential history cohesion sjkr rolling_friction epsd2 primitive type 2 general_cone $r 0  0  $h   0  0  0.0 ${cylrad}
+
+
+#region of insertion
+variable insrad equal ${cylrad}-0.001
+region      insReg cylinder z 0. 0. ${insrad} 0.0 0.1 units box
+
+#particle distributions
+fix         pts1 all particletemplate/sphere 563461 atom_type 1 density constant 2500 radius constant 0.5e-3
+fix         pdd1 all particledistribution/discrete 65751 1 pts1 1.0
+
+fix ins all insert/pack seed 1001 distributiontemplate pdd1 insert_every once overlapcheck yes volumefraction_region 0.5 region insReg ntry_mc 10000
+
+
+#apply nve integration to all particles
+fix         integr all nve/sphere
+
+#output settings, include total thermal energy
+compute         rke all erotate/sphere
+thermo_style    custom step atoms ke c_rke vol
+thermo          1000
+thermo_modify   lost ignore norm no
+compute_modify  thermo_temp dynamic yes
+
+region below block INF INF INF INF ${h1} ${h2} units box
+variable time equal step*dt
+variable np equal count(all)
+variable np_out equal count(all,below)
+variable vp equal vcm(all,x)
+fix printstat all print 1000 "${time} ${np} ${np_out} ${vp}" file ./stat_diameter.txt title "#time   np   np_out   vp"
+
+run     1
+
+dump    dmp all custom/vtk 5000 post/cone*.vtk id x y z radius
+
+
+run     500000
