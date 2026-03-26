@@ -22,9 +22,23 @@ Particles settling in a box with an obstacle and draining through a hole in the 
 
 Initial state of a hopper before material reaches the outlet and clogs it within a few time steps. Increasing the outlet diameter or making the walls steeper and/or smoother enhances flowability.
 
-## Particle-fluid test case
+## Particle-fluid test cases
 <div style="text-align: center;">
-<img src="illustrations/ParticlesAndFluid.png" alt="ParticlesAndFluids test case" width="400" />
+<img src="illustrations/TwoDroppingParticles.png" alt="ParticlesAndFluids test case 1" width="400" />
 </div>
 
-A bubbling fluidized bed with an obstacle. The inflow velocity increases from 0 m/s to its final value 1.6 m/s over the course of 1.0 s. First, the particles form a packed, immobile bed. Only when the gas velocity exceeds the fluidization velocity, particles start to move and form a transient pattern of voids and clusters. 
+Resolved CFD-DEM: two particles settling in a liquid column. The upper particle follows the lower one in its wake and finally catches up. The details of the fluid-mediated particle-particle interaction can only be captured with highly resolved simulations.
+
+
+<div style="text-align: center;">
+<img src="illustrations/FluidizedBed_bubbling.png" alt="ParticlesAndFluids test case 2" width="400" />
+</div>
+
+Unresolved CFD-DEM: a bubbling fluidized bed with an obstacle. The inflow velocity increases from 0 m/s to its final value 1.6 m/s over the course of 1.0 s. First, the particles form a packed, immobile bed. Only when the gas velocity exceeds the fluidization velocity, particles start to move and form a transient pattern of voids and clusters.
+
+
+<div style="text-align: center;">
+<img src="illustrations/FluidizedBed_turbulent.png" alt="ParticlesAndFluids test case 3" width="300" />
+</div>
+
+Two-fluid model: a turbulent fluidized bed with significant bed expansion. The large gas velocity transports particles high up in the container, creating a pattern of clusters with extended dilute regions between them. The vectors illustrate the gas flow, bypassing dense clusters of particles.
