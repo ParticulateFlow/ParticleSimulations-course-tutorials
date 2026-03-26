@@ -84,8 +84,9 @@ compute_modify  thermo_temp dynamic yes
 variable time equal step*dt
 variable np equal count(all)
 variable mp equal mass(all)
+variable xp equal xcm(all,x)
 variable vp equal vcm(all,x)
-fix printstat all print 1000 "${time} ${np} ${mp} ${vp}" file ../DEM/stat.txt title "#time   np   mp   vp"
+fix printstat all print 1000 "${time} ${np} ${mp} ${xp} ${vp}" file ../DEM/stat.txt title "#time   np   mp   xp   vp"
 
 shell mkdir ../DEM/post
 dump dmp all custom/vtk 10000 ../DEM/post/dump*.vtk id x y z vx vy vz radius
